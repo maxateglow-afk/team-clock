@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Employee {
+  id        String      @id @default(cuid())
+  name      String
+  pin       String
+  active    Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  entries   TimeEntry[]
+}
+
+model TimeEntry {
+  id         String    @id @default(cuid())
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id])
+  clockIn    DateTime
+  clockOut   DateTime?
+  note       String    @default("")
+
+  @@index([employeeId])
+}
