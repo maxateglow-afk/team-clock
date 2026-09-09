@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getActiveEmployees } from "@/lib/repo";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const employees = await getActiveEmployees();
 
